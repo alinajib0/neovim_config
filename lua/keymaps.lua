@@ -1,68 +1,4 @@
-function CloseOtherBuffers()
-  local current_buf = vim.api.nvim_get_current_buf()
-  local bufs = vim.api.nvim_list_bufs()
-
-  for _, buf in ipairs(bufs) do
-    if buf ~= current_buf and vim.api.nvim_buf_is_valid(buf) then
-      vim.api.nvim_buf_delete(buf, {})
-    end
-  end
-end
-
 local map = vim.keymap.set
-
-map('n', 'x', '"_x')
-map('n', '<Leader>p', '"0p')
-map('n', '<Leader>P', '"0P')
-map('v', '<Leader>p', '"0p')
-map('n', '<Leader>c', '"_c')
-map('n', '<Leader>C', '"_C')
-map('v', '<Leader>c', '"_c')
-map('v', '<Leader>C', '"_C')
-map('n', '<Leader>d', '"_d')
-map('n', '<Leader>D', '"_D')
-map('v', '<Leader>d', '"_d')
-map('v', '<Leader>D', '"_D')
-
-map('n', '+', '<C-a>')
-map('n', '-', '<C-x>')
-
-map('n', '<C-a>', 'gg<S-v>G')
-
-map('n', 'te', ':tabedit')
-
-map('n', 'J', 'mzJ`z')
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-u>', '<C-u>zz')
-map('n', 'n', 'nzzzv')
-map('n', 'N', 'Nzzzv')
-map('n', '=ap', "ma=ap'a")
-map('n', '<leader>lR', '<cmd>LspRestart<cr>')
-
-map('i', '<C-c>', '<Esc>')
-
--- diagnostic quick fix
-map('n', '<leader>i', vim.diagnostic.setloclist, { desc = 'Open diagnostic quickfix list' })
-
--- select all
-map('n', '<C-a>', 'ggVG', { desc = 'select all' })
-
--- exit terminal mode
-map('t', '<leader><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- check spell
-map('n', '<leader>s', 'z=', { desc = 'Check spell' })
-
-vim.keymap.set('n', '<leader>ta', ':Copilot enable<cr>', { silent = true, noremap = true })
-
-vim.keymap.set('n', '<leader>cpd', ':Copilot disable<cr>', { silent = true, noremap = true, desc = 'Disable Copilot' })
-vim.keymap.set('n', '<leader>cpe', ':Copilot enable<cr>', { silent = true, noremap = true, desc = 'Enable Copilot' })
-
--- better up/down
-map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
-map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
-map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
-map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 
 -- Move to window using the <ctrl> hjkl keys
 map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
@@ -89,58 +25,102 @@ map('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
 map('n', '<S-l>', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
 map('n', '[b', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
 map('n', ']b', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
-map('n', '<leader>bo', function()
-  CloseOtherBuffers()
-end, { desc = 'Close other buffers', noremap = true })
 
--- Clear search, diff update and redraw
-map('n', '<leader>cc', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', { desc = 'Redraw / Clear hlsearch / Diff Update' })
+-- better copy paste
+map('n', 'x', '"_x')
+map('n', '<Leader>p', '"0p')
+map('n', '<Leader>P', '"0P')
+map('v', '<Leader>p', '"0p')
+map('n', '<Leader>c', '"_c')
+map('n', '<Leader>C', '"_C')
+map('v', '<Leader>c', '"_c')
+map('v', '<Leader>C', '"_C')
+map('n', '<Leader>d', '"_d')
+map('n', '<Leader>D', '"_D')
+map('v', '<Leader>d', '"_d')
+map('v', '<Leader>D', '"_D')
+
+-- increment/decrement
+map('n', '+', '<C-a>')
+map('n', '-', '<C-x>')
+
+-- better navigation
+map('n', 'J', 'mzJ`z')
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-u>', '<C-u>zz')
+map('n', 'n', 'nzzzv')
+map('n', 'N', 'Nzzzv')
+--
+map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
+map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
+map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
+map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
+--
+map('v', '<', '<gv')
+map('v', '>', '>gv')
+map('v', '=', '=gv')
+
+-- exit terminal mode
+map('t', '<leader><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+-- select all
+map('n', '<C-a>', 'ggVG', { desc = 'select all' })
+
+-- windows
+map('n', '<leader>-', '<C-W>s', { desc = 'Split Window Below', remap = true })
+map('n', '<leader>|', '<C-W>v', { desc = 'Split Window Right', remap = true })
+
+-- tabs
+map('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
+map('n', '<leader><tab>o', '<cmd>tabonly<cr>', { desc = 'Close Other Tabs' })
+map('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
+map('n', '<leader><tab>n', '<cmd>tabnew<cr>', { desc = 'New Tab' })
+map('n', '<leader><tab><tab>', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
+map('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
+map('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
+
+-- copilot
+vim.keymap.set('n', '<leader>tc', ':Copilot disable<cr>', { silent = true, noremap = true, desc = 'Disable Copilot' })
+vim.keymap.set('n', '<leader>tC', ':Copilot enable<cr>', { silent = true, noremap = true, desc = 'Enable Copilot' })
 
 -- save file
 map({ 'i', 'x', 'n', 's' }, '<A-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
-
--- better indenting
-map('v', '<', '<gv')
-map('v', '>', '>gv')
 
 -- commenting
 map('n', 'gco', 'o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Below' })
 map('n', 'gcO', 'O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Above' })
 
--- lazy
-map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Lazy' })
-
 -- new file
-map('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'New File' })
+map('n', '<leader>ne', '<cmd>enew<cr>', { desc = 'New File' })
 
--- toggle options
-map('n', '<leader>r', function()
-  vim.o.relativenumber = not vim.o.relativenumber
+-- reset
+map('n', '<leader>L', '<cmd>LspRestart<cr>')
+map('n', '<Esc>', ':nohlsearch<CR>')
+map('n', '<leader>cc', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', { desc = 'Redraw / Clear hlsearch / Diff Update' })
+
+-- toggles
+map('n', '<leader>tw', ':set wrap!<CR>', { desc = 'toggle wrap' }) --tggle wrap
+
+map('n', '<leader>tr', function() --toggle relative vs absolute line numbers
+  if vim.wo.relativenumber then
+    vim.wo.relativenumber = false
+    vim.wo.number = true
+  else
+    vim.wo.relativenumber = true
+  end
 end, { desc = 'toggle relativenumber' })
-map('n', '<leader>n', function()
-  vim.o.number = not vim.o.number
-end, { desc = 'toggle number' })
 
--- ######
-
--- location list
-map('n', '<leader>xl', function()
-  local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
-  if not success and err then
-    vim.notify(err, vim.log.levels.ERROR)
+map('n', '<leader>ts', function() --toggle spell check
+  if vim.wo.spell then
+    vim.wo.spell = false
+  else
+    vim.wo.spell = true
   end
-end, { desc = 'Location List' })
+end, { desc = 'toggle spell' })
 
--- quickfix list
-map('n', '<leader>xq', function()
-  local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
-  if not success and err then
-    vim.notify(err, vim.log.levels.ERROR)
-  end
-end, { desc = 'Quickfix List' })
-
-map('n', '[q', vim.cmd.cprev, { desc = 'Previous Quickfix' })
-map('n', ']q', vim.cmd.cnext, { desc = 'Next Quickfix' })
+-- shortcuts to open plugins
+map('n', '<leader>L', '<cmd>Lazy<cr>', { desc = 'Lazy' })
+map('n', '<leader>M', '<cmd>Mason<cr>', { desc = 'Mason' })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
@@ -158,28 +138,51 @@ map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
 map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
 map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
 
+-- splits and buffers
+map('n', '<leader>vs', ':vsplit<CR>:bnext<CR>') --ver split + open next buffer
+
+-- diagnostic quick fix
+map('n', '<leader>i', vim.diagnostic.setloclist, { desc = 'Open diagnostic quickfix list' })
+
+-- check spell
+map('n', '<leader>k', 'z=', { desc = 'Check spell' })
+
+-- quickfix navigation
+map('n', '[q', vim.cmd.cprev, { desc = 'Previous Quickfix' })
+map('n', ']q', vim.cmd.cnext, { desc = 'Next Quickfix' })
+
+-- floating terminal
+map('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+map('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+
 -- quit
 map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit All' })
+map('n', '<C-q>', '<cmd>w<cr>', { desc = 'Write' })
+map('n', '<C-k>', '<cmd>q<cr>', { desc = 'Quit' })
 
--- highlights under cursor
-map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
-map('n', '<leader>uI', function()
-  vim.treesitter.inspect_tree()
-  vim.api.nvim_input 'I'
-end, { desc = 'Inspect Tree' })
+-- tips out of the way
+map('n', '<leader>x', '<cmd>!chmod +x %<CR>', { desc = 'make file executable' })
+map('n', '<leader>mv', ':!mv % ', { desc = 'move file to new place' })
+map('n', '<leader>r', ':so %<CR>', { desc = 'soruce current file' })
+map('n', '<leader>u', ':silent !xdg-open "<cWORD>" &<CR>', { desc = 'open a url under cursor' })
+map('n', '<leader>ma', function() --quick make in dir of buffer
+  local bufdir = vim.fn.expand '%:p:h'
+  vim.cmd('lcd ' .. bufdir)
+  vim.cmd '!sudo make uninstall && sudo make clean install %'
+end)
 
--- windows
-map('n', '<leader>-', '<C-W>s', { desc = 'Split Window Below', remap = true })
-map('n', '<leader>|', '<C-W>v', { desc = 'Split Window Right', remap = true })
-map('n', '<leader>wq', '<C-W>c', { desc = 'Delete Window', remap = true })
+-- location list
+map('n', '<leader>xl', function()
+  local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
+  if not success and err then
+    vim.notify(err, vim.log.levels.ERROR)
+  end
+end, { desc = 'Location List' })
 
--- tabs
-map('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
-map('n', '<leader><tab>o', '<cmd>tabonly<cr>', { desc = 'Close Other Tabs' })
-map('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
-map('n', '<leader><tab>n', '<cmd>tabnew<cr>', { desc = 'New Tab' })
-map('n', '<leader><tab><tab>', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
-map('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
-map('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
-
--- vim: ts=2 sts=2 sw=2 et
+-- quickfix list
+map('n', '<leader>xq', function()
+  local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
+  if not success and err then
+    vim.notify(err, vim.log.levels.ERROR)
+  end
+end, { desc = 'Quickfix List' })

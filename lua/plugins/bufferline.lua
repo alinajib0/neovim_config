@@ -10,10 +10,20 @@ return {
     { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
     { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
+    { '<A-1>', '<cmd>BufferLineGoToBuffer 1<cr>', desc = 'Move to buffer 1' },
+    { '<A-2>', '<cmd>BufferLineGoToBuffer 2<cr>', desc = 'Move to buffer 2' },
+    { '<A-3>', '<cmd>BufferLineGoToBuffer 3<cr>', desc = 'Move to buffer 3' },
+    { '<A-4>', '<cmd>BufferLineGoToBuffer 4<cr>', desc = 'Move to buffer 4' },
+    { '<A-5>', '<cmd>BufferLineGoToBuffer 5<cr>', desc = 'Move to buffer 5' },
+    { '<A-6>', '<cmd>BufferLineGoToBuffer 6<cr>', desc = 'Move to buffer 6' },
+    { '<A-7>', '<cmd>BufferLineGoToBuffer 7<cr>', desc = 'Move to buffer 7' },
+    { '<A-8>', '<cmd>BufferLineGoToBuffer 8<cr>', desc = 'Move to buffer 8' },
+    { '<A-9>', '<cmd>BufferLineGoToBuffer 9<cr>', desc = 'Move to buffer 9' },
+    { '<A-0>', '<cmd>BufferLineGoToBuffer -1<cr>', desc = 'Move to last buffer' },
   },
   opts = {
     options = {
-      mode = 'tabs',
+      -- mode = 'tabs',
 
       diagnostics = 'nvim_lsp',
       always_show_bufferline = false,
