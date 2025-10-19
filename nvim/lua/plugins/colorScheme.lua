@@ -20,5 +20,19 @@ return {
       vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
+  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+  { 'Mofiqul/dracula.nvim', name = 'dracula' },
+  { 'rose-pine/neovim', name = 'rose-pine' },
+  { 'EdenEast/nightfox.nvim' },
+  'rebelot/kanagawa.nvim',
+  {
+    'AlexvZyl/nordic.nvim',
+    priority = 1000,
+  },
+  'everviolet/nvim',
+  {
+    'xero/miasma.nvim',
+    priority = 1000,
+  },
 }
 -- vim: ts=2 sts=2 sw=2 et
